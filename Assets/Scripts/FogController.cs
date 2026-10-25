@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class FogController : MonoBehaviour
 {
+    // These are all editable fields within Unity for various aspects, such as checking if the player has eyes, or modifying the settings of the fog
     [Header("References")]
     [SerializeField] private Transform player;
     [SerializeField] private PlayerAbilities abilities;
@@ -16,7 +17,7 @@ public class FogController : MonoBehaviour
     [SerializeField] private int revealRadius = 3;
     [SerializeField] private int fogPadding = 2;
 
-
+    // Takes the tile coordinates from Vector3Iint to check if the background tiles should be visible or not
     private readonly HashSet<Vector3Int> visibleNow = new HashSet<Vector3Int>();
     private readonly HashSet<Vector3Int> newVisible = new HashSet<Vector3Int>();
 
@@ -27,16 +28,17 @@ public class FogController : MonoBehaviour
         FillFog();
     }
 
+    // checks the tiles around the player on each update and calls the RefreshVisibility function
     private void Update() {
         Vector3Int cell = fogTilemap.WorldToCell(player.position);
-        if (hasLastCell && cell == lastCell) return; // still in the same cell
+        if (hasLastCell && cell == lastCell) return; // still in the same cell, doesn't recalculate the fog 
 
         lastCell = cell;
         hasLastCell = true;
         RefreshVisibility(cell);
     }
 
-
+    // Fills the area outside of the fog padding with fog tiles
     private void FillFog() {
         floorTilemap.CompressBounds();
         BoundsInt b = floorTilemap.cellBounds;
@@ -48,7 +50,7 @@ public class FogController : MonoBehaviour
         }
     }
 
-
+    // Function for revealing/covering tiles with fog, adds tiles to the newVisible HashSet
     private void RefreshVisibility(Vector3Int center) {
         newVisible.Clear();
         int r2 = revealRadius * revealRadius;
@@ -66,11 +68,11 @@ public class FogController : MonoBehaviour
                     fogTilemap.SetTile(c, fogTile);
             }
         }
-
+        // Cells in the view get cleared and remembered
         foreach (Vector3Int c in newVisible) {
             fogTilemap.SetTile(c, null);
         }
-
+        // Replace visibleNow values with those from newVisible from this current refresh
         visibleNow.Clear();
         foreach (Vector3Int c in newVisible) visibleNow.Add(c);
     }

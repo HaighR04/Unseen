@@ -144,3 +144,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BodyPartPickup
   part: 0
   message: The world had color once
+  pickupSound: {fileID: 8300000, guid: 8bb3f6a003e97af40ae43ca6aecaac77, type: 3}
