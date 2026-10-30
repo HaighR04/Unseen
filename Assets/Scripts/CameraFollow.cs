@@ -4,7 +4,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private Transform target;
-    [SerializeField] private float smoothTime = 0.25f;
+    [SerializeField] private float smoothTime = 0.25f; // Larger means slower and lazier camera
 
     private Vector3 velocity;
     

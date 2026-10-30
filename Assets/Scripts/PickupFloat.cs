@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// Makes the pickups float, pulse the glow color, and bob up and down
+// Attach to the Visual child object so the trigger collider stays still
 public class PickupFloat : MonoBehaviour
 {
     // Fields for customizing the pickups, glow, and bobbing
@@ -13,7 +15,7 @@ public class PickupFloat : MonoBehaviour
     private Vector3 startLocalPos;
     private float phase;
 
-    // When game starts, gives each pickup a random phase to randomize teh starting point of the wave for update
+    // When game starts, gives each pickup a random phase to randomize the starting point of the wave for update
     private void Awake() {
         startLocalPos = transform.localPosition;
         phase = Random.value * Mathf.PI * 2f;

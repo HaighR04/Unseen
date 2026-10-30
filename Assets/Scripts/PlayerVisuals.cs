@@ -2,8 +2,11 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(PlayerAbilities))]
 
-// Class for managing body part sprites and stages
-public class Player : MonoBehaviour
+/* Swaps the players sprite as the body parts get picked up, sprite is chosen by how many parts the player has collected
+Stages only match the art if parts are collected in correct order
+
+*/
+public class PlayerVisuals : MonoBehaviour
 {
     [SerializeField] private Sprite[] stages; // 0 = none, 1 += arms, 2 += legs, 3 += eyes
 
@@ -14,12 +17,14 @@ public class Player : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         abilities = GetComponent<PlayerAbilities>();
     }
-
+    
+    // Connect to the unlock event so the sprite can update right as a part gets collected
     private void OnEnable() {
         abilities.OnUnlocked += HandleUnlocked;
         Refresh();
     }
 
+    // Always unsubscribe when disabled so the scene reloads do not leave dangling event handlers
     private void OnDisable() {
         abilities.OnUnlocked -= HandleUnlocked;
     }

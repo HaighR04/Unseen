@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
-// Automatically adds a rigidbody if the player doesn't have one
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerAbilities))]
+
+// Top-down movement, Unity adds the required componets automatically if the player doesn't have them
 public class PlayerMovement : MonoBehaviour
 {
     // Customizable fields for movement
@@ -20,8 +20,7 @@ public class PlayerMovement : MonoBehaviour
         abilities = GetComponent<PlayerAbilities>();
     }   
 
-    // Handles the logic for movement, takes inputs of WASD or arrow keys, then uses normalized vector to scale the movement on 
-    // diagonals to the same speed as moving horizontal or vertical
+    // Reads input each frame, WASD and arrow keys both work, vector is normalized so that diagonal movement is the same speed as horizontal or vertical
     private void Update() {
         Keyboard kb = Keyboard.current;
         if (kb == null) return;

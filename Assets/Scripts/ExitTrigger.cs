@@ -1,11 +1,13 @@
 using UnityEngine;
 
+// The level exit, requires a Collider2D with IsTrigger checked
 public class ExitTrigger : MonoBehaviour
 {
-    [SerializeField, TextArea] private string exitMessage = "I remember why I ran.";
+    [SerializeField, TextArea] private string exitMessage = "I remember why I ran."; // default message, idk what important it has???
     [SerializeField] private AudioClip victorySound;
 
-    private bool finished;
+    private bool finished; // Makes sure the ending only triggers once
+
     // Same thing as BodyPartPickup, runs when another collider enters this collider
     private void OnTriggerEnter2D(Collider2D other) {
         if (finished) return;
